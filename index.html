@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lukas Eifertinger — Digital Archive</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://lukas-eft.github.io/Portfolio/le-logo.png">
+
+<link rel="apple-touch-icon" href="https://lukas-eft.github.io/Portfolio/le-logo.png">
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://lukas-eft.github.io/Portfolio/le-logo.png">
+  <style>
+    :root {
+      --apple-glass: rgba(255, 255, 255, 0.04);
+      --apple-border: rgba(255, 255, 255, 0.1);
+      --apple-blur: 40px;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .liquid-glass {
+      background: var(--apple-glass);
+      backdrop-filter: blur(var(--apple-blur)) saturate(200%);
+      -webkit-backdrop-filter: blur(var(--apple-blur)) saturate(200%);
+      border: 1px solid var(--apple-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .liquid-glass-heavy {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(60px) saturate(180%);
+      -webkit-backdrop-filter: blur(60px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .glass-input {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      color: white;
+    }
+
+    .glass-input:focus {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.3);
+      outline: none;
+    }
+
+    .gloss-reflection {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gloss-reflection::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.05) 45%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 55%,
+        transparent 100%
+      );
+      transform: rotate(30deg);
+      pointer-events: none;
+      transition: transform 0.6s ease;
+    }
+
+    .item-card:hover .gloss-reflection::after {
+      transform: rotate(30deg) translate(20%, 20%);
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.2; }
+    }
+
+    .ambient-glow {
+      animation: pulse-soft 8s ease-in-out infinite;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-hidden {
+      display: none !important;
+    }
+
+    .suggestion-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .edit-btn {
+  background: rgba(255, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 1 !important; 
+  transition: all 0.3s ease;
+}
+
+.delete-btn {
+  background: rgba(255, 0, 0, 0.1);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 1 !important; 
+  transition: all 0.3s ease;
+}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+      <div class="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-zinc-900/40 blur-[150px] rounded-full ambient-glow"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-white/5 blur-[120px] rounded-full"></div>
+    </div>
+
+    <main class="px-8 md:px-20 pt-12 pb-40 max-w-[1920px] mx-auto">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-20">
+        <div class="flex items-center gap-4 opacity-30 hover:opacity-100 transition-opacity duration-500 cursor-default">
+          <img src="https://lukas-eft.github.io/Portfolio/le-logo.png" class="w-6 h-6 invert" alt="Logo">
+          <h1 class="text-xs font-light tracking-[0.4em] uppercase">Lukas Eifertinger - Archive</h1>
+        </div>
+
+        <div class="relative w-full md:w-96 group">
+          <div class="relative">
+            <input id="search-input" type="text" autocomplete="off" placeholder="Search archive..." class="glass-input w-full rounded-full px-8 py-3.5 text-[10px] uppercase tracking-[0.3em] font-light">
+            <svg class="absolute right-6 top-1/2 -translate-y-1/2 opacity-20" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          </div>
+          <div id="suggestions-dropdown" class="absolute top-full left-0 w-full mt-2 liquid-glass-heavy rounded-3xl overflow-hidden hidden z-50 border border-white/5 shadow-2xl">
+          </div>
+        </div>
+      </div>
+
+      <header class="mb-24 fade-in">
+        <p class="text-white/20 text-[10px] uppercase tracking-[0.6em] mb-6">Personal Collection</p>
+        <h2 class="text-7xl md:text-9xl font-extralight tracking-tighter leading-none">Your <br/><span class="text-white/40 italic">Wish List.</span></h2>
+      </header>
+
+      <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
+      </div>
+
+      <div id="empty-state" class="hidden py-60 flex flex-col items-center justify-center text-center opacity-20 fade-in">
+        <div class="w-px h-32 bg-gradient-to-b from-transparent via-white to-transparent mb-12"></div>
+        <p class="uppercase tracking-[1em] text-[10px]">Start adding things</p>
+      </div>
+    </main>
+
+    <button id="open-modal-btn" class="fixed bottom-10 right-10 z-50 bg-white text-black w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-[0_0_50px_rgba(255,255,255,0.2)]">
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" /></svg>
+    </button>
+
+    <div id="wish-modal" class="modal-hidden fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/70 backdrop-blur-xl transition-all">
+      <div class="liquid-glass-heavy w-full max-w-lg rounded-[3rem] p-10 relative shadow-[0_0_100px_rgba(255,255,255,0.05)]">
+        <div class="flex justify-between items-center mb-10">
+          <h2 class="text-3xl font-light tracking-tighter text-white">Archive.</h2>
+          <button id="close-modal-btn" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-all text-white">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+
+        <form id="wish-form" class="space-y-6">
+          <div class="space-y-2">
+            <label class="text-[10px] uppercase tracking-[0.3em] text-white/30 ml-2">Source Link</label>
+            <input id="item-url" type="url" placeholder="https://..." class="glass-input w-full rounded-2xl px-6 py-4 text-sm font-light">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-[10px] uppercase tracking-[0.3em] text-white/30 ml-2">Name</label>
+              <input id="item-title" required type="text" class="glass-input w-full rounded-2xl px-6 py-4 text-sm font-light">
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] uppercase tracking-[0.3em] text-white/30 ml-2">Price</label>
+              <input id="item-price" type="text" placeholder="$0.00" class="glass-input w-full rounded-2xl px-6 py-4 text-sm font-light">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-[10px] uppercase tracking-[0.3em] text-white/30 ml-2">Visual URL</label>
+            <input id="item-image" required type="url" placeholder="Paste image link..." class="glass-input w-full rounded-2xl px-6 py-4 text-sm font-light">
+          </div>
+
+          <div class="space-y-2 relative" id="category-dropdown-container">
+  <label class="text-[10px] uppercase tracking-[0.3em] text-white/30 ml-2">Category</label>
+  
+  <div id="category-trigger" class="glass-input w-full rounded-2xl px-6 py-4 text-sm font-light flex justify-between items-center cursor-pointer">
+    <span id="selected-category-text">Select Category</span>
+    <svg class="opacity-30 transition-transform duration-300" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+  <div id="category-options" class="absolute bottom-full left-0 w-full mb-2 liquid-glass-heavy rounded-[2rem] overflow-hidden hidden z-[60] border border-white/10 shadow-2xl">
+    <div class="py-2">
+      <div class="category-opt px-6 py-4 hover:bg-white/5 cursor-pointer text-xs tracking-widest uppercase transition-colors" data-value="Tech">Tech</div>
+      <div class="category-opt px-6 py-4 hover:bg-white/5 cursor-pointer text-xs tracking-widest uppercase transition-colors" data-value="Motorcycle">Motorcycle</div>
+      <div class="category-opt px-6 py-4 hover:bg-white/5 cursor-pointer text-xs tracking-widest uppercase transition-colors" data-value="Home">Home</div>
+      <div class="category-opt px-6 py-4 hover:bg-white/5 cursor-pointer text-xs tracking-widest uppercase transition-colors" data-value="Lifestyle">Lifestyle</div>
+      <div class="category-opt px-6 py-4 hover:bg-white/5 cursor-pointer text-xs tracking-widest uppercase transition-colors" data-value="Other">Other</div>
+    </div>
+  </div>
+
+  <input type="hidden" id="item-category" value="Other">
+</div>
+
+          <button type="submit" class="w-full bg-white text-black py-5 rounded-2xl font-semibold uppercase tracking-[0.2em] text-sm hover:scale-[1.01] transition-all shadow-xl shadow-white/5 mt-4">
+            Add to Archive
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
