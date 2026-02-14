@@ -2,7 +2,7 @@
 **Developed by Lukas Eifertinger**
 
 LE Archive is my Personal, JavaScript-based Wishlist website. It uses local storage and modern background blur filter elements.
-![g-000318-g_W3183129_16-yamaha-r125-638757329073618570](https://github.com/user-attachments/assets/89eec875-ac84-4b4d-9931-e6311f2e885f)
+<img width="1909" height="1079" alt="Screenshot 2026-02-14 213708" src="https://github.com/user-attachments/assets/552de6bd-d742-4c3f-90dd-966601590e21" />
 
 
 ###  Key Functionalities
@@ -18,3 +18,4 @@ LE Archive is my Personal, JavaScript-based Wishlist website. It uses local stor
 #### File Structure
 * `index.html`: The structure of the site and UI layers aswell as all styling integrated.
 * `main.js`: Core functionality.
+
