@@ -19,3 +19,5 @@ LE Archive is my personal, JavaScript-based wishlist website. It uses local stor
 * `index.html`: The structure of the site and UI layers aswell as all styling integrated.
 * `main.js`: Core functionality.
 
+### CopyRight
+For any Copyright reasons or concerns feel free to contact me.
