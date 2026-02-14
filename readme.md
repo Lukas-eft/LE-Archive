@@ -1,7 +1,7 @@
 # LE Archive
 **Developed by Lukas Eifertinger**
 
-LE Archive is my Personal, JavaScript-based Wishlist website. It uses local storage and modern background blur filter elements.
+LE Archive is my personal, JavaScript-based wishlist website. It uses local storage and modern background blur filter elements.
 <img width="1909" height="1079" alt="Screenshot 2026-02-14 213708" src="https://github.com/user-attachments/assets/552de6bd-d742-4c3f-90dd-966601590e21" />
 
 
